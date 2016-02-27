@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'felipesmendes:autoform-semantic-ui',
+  name: 'felipems:autoform-semantic-ui',
   version: '0.9.4',
   // Brief, one-line summary of the package.
   summary: 'Semantic-ui template for aldeed:autoform package.',
