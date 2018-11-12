@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'eoliphant:autoform-semantic-ui',
+  name: 'perfectsofttunisia:autoform-semantic-ui',
   version: '1.0.0',
   // Brief, one-line summary of the package.
   summary: 'Semantic-ui template for aldeed:autoform package.',
@@ -15,7 +15,7 @@ Package.onUse(function(api) {
 
   api.use(['ecmascript', 'templating', 'underscore', 'jquery'], 'client');
 
-  api.use('aldeed:autoform@6.0.0', 'client');
+  api.use('aldeed:autoform@6.3.0', 'client');
 
   api.use('aldeed:template-extension@3.4.3','client');
 
