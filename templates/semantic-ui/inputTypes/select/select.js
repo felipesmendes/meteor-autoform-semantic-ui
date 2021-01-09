@@ -42,7 +42,7 @@ AutoForm.addInputType("select", {
 			// any string to 1 if the other values are numbers, and then considers
 			// that a duplicate.
 			// See https://github.com/aldeed/meteor-autoform/issues/656
-			_id        : item.value.toString(),
+			_id        : item.value && item.value.toString(),
 			atts       : itemAtts
 		});
 
