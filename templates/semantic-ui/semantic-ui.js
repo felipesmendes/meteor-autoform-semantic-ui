@@ -1,5 +1,7 @@
 /* global AutoForm */
 
+import 'meteor/aldeed:autoform/static';
+
 Template.autoForm.helpers({
   atts() {
     // After removing all of the props we know about, everything else should
