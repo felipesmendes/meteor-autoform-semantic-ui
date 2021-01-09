@@ -1,23 +1,19 @@
 Package.describe({
-  name: 'perfectsofttunisia:autoform-semantic-ui',
-  version: '1.0.0',
-  // Brief, one-line summary of the package.
+  name: 'cheesington:autoform-semantic-ui',
+  version: '1.1.0',
   summary: 'Semantic-ui template for aldeed:autoform package.',
-  // URL to the Git repository containing the source code for this package.
-  git: 'https://github.com/eoliphan/meteor-autoform-semantic-ui',
-  // By default, Meteor will default to using README.md for documentation.
-  // To avoid submitting documentation, set this field to null.
+  git: 'https://github.com/cheesington/meteor-autoform-semantic-ui',
   documentation: 'README.md'
 });
 
 Package.onUse(function(api) {
   api.versionsFrom('1.2.0.1');
 
-  api.use(['ecmascript', 'templating', 'underscore', 'jquery'], 'client');
+  api.use(['ecmascript', 'templating', 'underscore', 'jquery@3.0.0'], 'client');
 
-  api.use('aldeed:autoform@6.3.0', 'client');
+  api.use('aldeed:autoform@7.0.0', 'client');
 
-  api.use('aldeed:template-extension@3.4.3','client');
+  api.use('aldeed:template-extension@4.1.0','client');
 
   api.addFiles([
     // semantic-ui Template - General
