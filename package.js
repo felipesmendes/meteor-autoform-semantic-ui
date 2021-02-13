@@ -1,21 +1,19 @@
 Package.describe({
-  name: 'felipems:autoform-semantic-ui',
-  version: '0.9.5',
-  // Brief, one-line summary of the package.
+  name: 'cheesington:autoform-semantic-ui',
+  version: '1.1.0',
   summary: 'Semantic-ui template for aldeed:autoform package.',
-  // URL to the Git repository containing the source code for this package.
-  git: 'https://github.com/felipesmendes/meteor-autoform-semantic-ui.git',
-  // By default, Meteor will default to using README.md for documentation.
-  // To avoid submitting documentation, set this field to null.
+  git: 'https://github.com/cheesington/meteor-autoform-semantic-ui.git',
   documentation: 'README.md'
 });
 
 Package.onUse(function(api) {
   api.versionsFrom('1.2.0.1');
 
-  api.use(['ecmascript', 'templating', 'underscore', 'jquery'], 'client');
+  api.use(['ecmascript', 'templating', 'underscore', 'jquery@3.0.0'], 'client');
 
-  api.use('aldeed:autoform@5.8.1', 'client');
+  api.use('aldeed:autoform@7.0.0', 'client');
+
+  api.use('aldeed:template-extension@4.1.0','client');
 
   api.addFiles([
     // semantic-ui Template - General
@@ -26,6 +24,8 @@ Package.onUse(function(api) {
     'templates/semantic-ui/components/afArrayField/afArrayField.html',
     'templates/semantic-ui/components/afArrayField/afArrayField.css',
     'templates/semantic-ui/components/afFormGroup/afFormGroup.html',
+    'templates/semantic-ui/components/afFormGroup/unlabeledinput.html',
+    'templates/semantic-ui/components/afFormGroup/labeledinput.html',
     'templates/semantic-ui/components/afFormGroup/afFormGroup.js',
     'templates/semantic-ui/components/afObjectField/afObjectField.html',
     'templates/semantic-ui/components/afObjectField/afObjectField.js',

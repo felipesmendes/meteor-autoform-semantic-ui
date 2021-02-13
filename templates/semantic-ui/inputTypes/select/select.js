@@ -4,13 +4,13 @@ AutoForm.addInputType("select", {
 		return this.val();
 	},
 	valueConverters: {
-		stringArray: AutoForm.valueConverters.stringToStringArray,
-		number: AutoForm.valueConverters.stringToNumber,
-		numberArray: AutoForm.valueConverters.stringToNumberArray,
-		boolean: AutoForm.valueConverters.stringToBoolean,
-		booleanArray: AutoForm.valueConverters.stringToBooleanArray,
-		date: AutoForm.valueConverters.stringToDate,
-		dateArray: AutoForm.valueConverters.stringToDateArray
+    stringArray : AutoForm.valueConverters.stringToStringArray,
+    number      : AutoForm.valueConverters.stringToNumber,
+    numberArray : AutoForm.valueConverters.stringToNumberArray,
+    boolean     : AutoForm.valueConverters.stringToBoolean,
+    booleanArray: AutoForm.valueConverters.stringToBooleanArray,
+    date        : AutoForm.valueConverters.stringToDate,
+    dateArray   : AutoForm.valueConverters.stringToDateArray
 	},
 	contextAdjust(context) {
 		// can fix issues with some browsers selecting the firstOption instead of the selected option
@@ -25,16 +25,14 @@ AutoForm.addInputType("select", {
 		context.items = [];
 
 		let buildItem = item => ({
-			name: context.name,
-			label: item.label,
-			icon: item.icon || false,
+			name       : context.name,
+			label      : item.label,
+			icon       : item.icon || false,
 			description: item.description || false,
-			value: item.value,
-			htmlAtts: _.extend({
-					class: "item"
-				},
-				_.omit(item, "label", "value", "icon", "circularLabel", "description",
-					"itemGroup", "category", "items")
+			value      : item.value,
+			htmlAtts   : _.extend(
+				{ class: "item" },
+				_.omit(item, "label", "value", "icon", "circularLabel", "description", "itemGroup", "category", "items")
 			),
 			// _id must be included because it is a special property that
 			// #each uses to track unique list items when adding and removing them
@@ -44,8 +42,8 @@ AutoForm.addInputType("select", {
 			// any string to 1 if the other values are numbers, and then considers
 			// that a duplicate.
 			// See https://github.com/aldeed/meteor-autoform/issues/656
-			_id: (item.value !== undefined) ? item.value.toString() : item.value,
-			atts: itemAtts
+			_id        : item.value && item.value.toString(),
+			atts       : itemAtts
 		});
 
 		// Add all defined options
@@ -55,14 +53,14 @@ AutoForm.addInputType("select", {
 
 				context.items.push({
 					itemGroup: item.itemGroup,
-					items: subItems
+					items    : subItems
 				});
 			} else if (item.category) {
 				let subItems = _.map(item.items, buildItem);
 
 				context.items.push({
 					category: item.category,
-					items: subItems
+					items   : subItems
 				});
 			} else {
 				context.items.push(buildItem(item));
@@ -75,45 +73,42 @@ AutoForm.addInputType("select", {
 
 Template.afSelect_semanticUI.helpers({
 	divAtts() {
-			let atts = {
-				class: "ui dropdown"
-			};
+		let atts = { class: "ui dropdown" };
 
-			// Add custom classes or default
-			if (_.isString(this.atts.class)) {
-				atts = AutoForm.Utility.addClass(atts, this.atts.class);
-			} else {
-				atts = AutoForm.Utility.addClass(atts, "fluid selection");
-			}
-
-			// Add the disabled class if required
-			if (this.atts.disabled === "") {
-				atts = AutoForm.Utility.addClass(atts, "disabled");
-			}
-
-			// Add search class, also add selection for proper design
-			if (this.atts.search || this.atts.fullTextSearch) {
-				atts = AutoForm.Utility.addClass(atts, "search selection");
-			}
-
-			// Add multiple class
-			if (this.atts.multiple) {
-				atts = AutoForm.Utility.addClass(atts, "multiple");
-			}
-
-			return atts;
-		},
-		inputAtts() {
-			return _.pick(this.atts, "name", "id", "required", "data-schema-key",
-				"autocomplete", "value");
-		},
-		showClearButton() {
-			return this.atts.required !== "" && !this.atts.multiple;
+		// Add custom classes or default
+		if (_.isString(this.atts.class)) {
+			atts = AutoForm.Utility.addClass(atts, this.atts.class);
+		} else {
+			atts = AutoForm.Utility.addClass(atts, "fluid selection");
 		}
+
+		// Add the disabled class if required
+		if (this.atts.disabled === "") {
+			atts = AutoForm.Utility.addClass(atts, "disabled");
+		}
+
+		// Add search class, also add selection for proper design
+		if (this.atts.search || this.atts.fullTextSearch) {
+			atts = AutoForm.Utility.addClass(atts, "search selection");
+		}
+
+		// Add multiple class
+		if (this.atts.multiple) {
+			atts = AutoForm.Utility.addClass(atts, "multiple");
+		}
+
+		return atts;
+	},
+	inputAtts() {
+		return _.pick(this.atts, "name", "id", "required", "data-schema-key", "autocomplete", "value");
+	},
+	showClearButton() {
+		return this.atts.required !== "" && ! this.atts.multiple;
+	}
 });
 
 Template.afSelect_semanticUI.events({
-	"click .ui.clear.button" (event, template) {
+	"click .ui.clear.button"(event, template) {
 		template.$(".ui.dropdown").dropdown("clear").dropdown("hide");
 	}
 });
@@ -122,19 +117,19 @@ Template.afSelect_semanticUI.onRendered(function() {
 	let node = this.$(this.firstNode);
 
 	node.dropdown(_.extend({
-		fullTextSearch: this.data.atts.fullTextSearch || false,
-		allowAdditions: this.data.atts.allowAdditions || false,
-		maxSelections: this.data.atts.maxSelections ||  false,
+		fullTextSearch        : this.data.atts.fullTextSearch || false,
+		allowAdditions        : this.data.atts.allowAdditions || false,
+		maxSelections         : this.data.atts.maxSelections || false,
 		allowCategorySelection: this.data.atts.allowCategorySelection || false,
-		useLabels: this.data.atts.useLabels === false ? false : true
+		useLabels             : this.data.atts.useLabels === false ? false : true
 	}, this.data.atts.settings));
 
-	this.autorun((c) => {
-		let data = Template.currentData();
+  this.autorun((c) => {
+    let data = Template.currentData();
 
-		if (data.value) {
+    if (data.value) {
 			node.dropdown("set selected", data.value);
-			c.stop();
-		}
-	});
+      c.stop();
+    }
+  });
 });
